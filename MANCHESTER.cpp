@@ -30,9 +30,15 @@ The actual data rate is then 500 bits/s.
 
 MANCHESTERClass::MANCHESTERClass()  //constructor
 {
-  TxPin = TxDefault;
-  pinMode(TxPin, OUTPUT);      // sets the digital pin 4 default as output 
+  TxPin = TX_DEFAULT_PIN;
+  pinMode(TxPin, OUTPUT);
 }//end of constructor
+
+MANCHESTERClass::MANCHESTERClass( char pin ) 
+{
+  TxPin = pin;
+  pinMode(TxPin, OUTPUT);
+}
 
 void MANCHESTERClass::SetTxPin(char pin)
 {
@@ -221,6 +227,15 @@ void MANRX_StopReceive(void)
 
 boolean MANRX_ReceiveComplete(void)
 {
+/*
+  Serial.print( "ReceiveComplete;  rx_pin: " );
+  Serial.print( RxPin );
+  Serial.print( ", rx_mode: " );
+  Serial.print( rx_mode );
+  Serial.print( ", rx_last_sample: " );
+  Serial.println( rx_last_sample );
+  */
+
   return (rx_mode == RX_MODE_MSG);
 }
 

@@ -27,7 +27,7 @@ The actual data rate is then 500 bits/s.
 #ifndef MANCHESTER_h
 #define MANCHESTER_h
 
-#define TxDefault 4  //the digital pin to use to transmit data
+#define TX_DEFAULT_PIN 4  //the digital pin to use to transmit data
 #define pulse 1000 //the individual transmit pulse width in msec
 
 /*
@@ -61,9 +61,20 @@ With an error allowance of 22.5 usec we get the following:
 class MANCHESTERClass
 {
   public:
-    MANCHESTERClass();  //the constructor
-    void SetTxPin(char pin); //set the arduino digital pin for transmit. default 4.
-    void Transmit(unsigned int data);  //transmit 16 bits of data
+    /**
+     * Default constructor will use the TX_DEFAULT_PIN pin as the transmit pin.
+     */
+    MANCHESTERClass();  
+
+    /**
+     * This constructor allows you to pass in the pin that you wish to use 
+     * for the transmit.
+     */
+    MANCHESTERClass( char pin ); 
+
+    void SetTxPin(char pin); // Set the arduino digital pin for transmit.
+
+    void Transmit(unsigned int data);  // Transmit 16 bits of data
     void TransmitBytes(unsigned char numBytes, unsigned char *data); // transmit a byte array
     
   private:
